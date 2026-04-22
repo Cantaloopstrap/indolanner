@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 
 // Re-export cities data directly (this doesn't need dynamic import)
-export { INDONESIAN_CITIES, type City } from '@/components/indonesia-leaflet-map'
+export { INDONESIAN_CITIES, type City } from '@/lib/data'
 
 // Dynamically import the Leaflet map with no SSR to prevent hydration errors
 const DynamicIndonesiaMap = dynamic(
