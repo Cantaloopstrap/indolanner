@@ -36,22 +36,22 @@ export default function StarRating({ onRatingChange, initialRating = 0 }: StarRa
             onClick={() => handleClick(star)}
             onMouseEnter={() => handleHover(star)}
             onMouseLeave={handleLeave}
-            className="p-2 transition-transform hover:scale-110 active:scale-95"
+            className="p-2 transition-transform hover:scale-110 active:scale-95 bg-zinc-800 dark:bg-zinc-300 border-2 border-black shadow-[4px_4px_0px_0px_#000]"
             aria-label={`Rate ${star} stars`}
           >
             <Star
               size={32}
               className={`transition-all ${
                 star <= displayRating
-                  ? 'fill-primary stroke-border stroke-2'
-                  : 'stroke-border stroke-2'
+                  ? 'fill-[#FFFF00] stroke-[#FFFF00] stroke-2'
+                  : 'fill-transparent stroke-[#FFFF00] stroke-2'
               }`}
             />
           </button>
         ))}
       </div>
       {rating > 0 && (
-        <span className="font-bold text-lg ml-2">
+        <span className="font-bold text-lg ml-2 text-foreground">
           {rating} / 5
         </span>
       )}
