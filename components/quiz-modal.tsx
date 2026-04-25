@@ -58,18 +58,22 @@ export default function QuizModal({ onClose, onComplete }: QuizModalProps) {
     if (currentStep < QUIZ_STEPS.length - 1) {
       setCurrentStep(currentStep + 1)
     } else {
-      // Submit quiz
+      // Submit quiz - DEMO MODE: Always return Bali itinerary
       setIsLoading(true)
       setTimeout(() => {
         setIsLoading(false)
-        // Convert answers to dict format
-        const answerDict: Record<string, string> = {}
-        answers.forEach((answer, idx) => {
-          const question = QUIZ_STEPS[idx]
-          answerDict[`step${idx + 1}`] = answer
-        })
+        // DEMO MODE: Hardcoded response ignoring quiz answers
+        const demoAnswers: Record<string, string> = {
+          step1: 'Pantai & Relaksasi',
+          step2: '3-5 hari',
+          step3: 'Standar',
+          step4: 'Musim Kering (Apr-Oct)',
+          step5: 'Private Tour (eksklusif)',
+          step6: 'Pasangan',
+          itineraryTitle: '3-Day Bali Itinerary (Ubud & Kuta)',
+        }
         if (onComplete) {
-          onComplete(answerDict)
+          onComplete(demoAnswers)
         }
         onClose()
       }, 2000)

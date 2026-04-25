@@ -120,11 +120,11 @@ const DESTINATION_DETAILS: Record<string, any> = {
 
 export default function DestinationDetail({ destination, onBack }: DestinationDetailProps) {
   const [reviewModalOpen, setReviewModalOpen] = useState(false)
-  const [reviews, setReviews] = useState<Array<{ rating: number; comment: string }>>([])
+  const [reviews, setReviews] = useState<Array<{ fullName: string; rating: number; comment: string }>>([])
   
   const detail = DESTINATION_DETAILS[destination]
 
-  const handleReviewSubmit = (review: { rating: number; comment: string }) => {
+  const handleReviewSubmit = (review: { fullName: string; rating: number; comment: string }) => {
     setReviews([review, ...reviews])
   }
 
@@ -277,9 +277,12 @@ export default function DestinationDetail({ destination, onBack }: DestinationDe
             <div className="space-y-4">
               {reviews.map((review, idx) => (
                 <div key={idx} className="border-l-4 border-primary pl-4 py-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    {'⭐'.repeat(review.rating)}
-                    <span className="text-sm font-bold text-foreground/70">({review.rating}/5)</span>
+                  <div className="flex items-start justify-between mb-2">
+                    <h4 className="font-bold text-foreground">{review.fullName}</h4>
+                    <div className="flex items-center gap-2">
+                      {'⭐'.repeat(review.rating)}
+                      <span className="text-sm font-bold text-foreground/70">({review.rating}/5)</span>
+                    </div>
                   </div>
                   <p className="text-foreground/80">{review.comment}</p>
                 </div>
