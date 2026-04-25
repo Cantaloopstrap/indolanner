@@ -8,16 +8,22 @@ interface ReviewModalProps {
   isOpen: boolean
   destinationName: string
   onClose: () => void
-  onSubmit: (review: { rating: number; comment: string }) => void
+  onSubmit: (review: { fullName: string; rating: number; comment: string }) => void
 }
 
 export default function ReviewModal({ isOpen, destinationName, onClose, onSubmit }: ReviewModalProps) {
+  const [fullName, setFullName] = useState('')
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (fullName.trim().length === 0) {
+      alert('Silakan masukkan nama lengkap Anda')
+      return
+    }
     
     if (rating === 0) {
       alert('Silakan pilih rating bintang')
@@ -34,11 +40,12 @@ export default function ReviewModal({ isOpen, destinationName, onClose, onSubmit
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 800))
     
-    console.log(`[v0] Review submitted for ${destinationName}:`, { rating, comment })
+    console.log(`[v0] Review submitted for ${destinationName}:`, { fullName, rating, comment })
     
-    onSubmit({ rating, comment })
+    onSubmit({ fullName, rating, comment })
     
     // Reset form
+    setFullName('')
     setRating(0)
     setComment('')
     setIsSubmitting(false)
@@ -69,6 +76,22 @@ export default function ReviewModal({ isOpen, destinationName, onClose, onSubmit
 
         {/* Form Content */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* Full Name Section */}
+          <div>
+            <label className="block text-sm font-bold mb-3">Nama Lengkap</label>
+            <input
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder="Masukkan nama lengkap Anda"
+              maxLength={100}
+              className="w-full px-4 py-3 border-4 border-border rounded-lg bg-background text-foreground font-bold placeholder-foreground/50 focus:outline-none focus:ring-0 focus:border-primary transition-colors"
+              style={{
+                boxShadow: 'inset 2px 2px 0px rgba(0,0,0,0.1)'
+              }}
+            />
+          </div>
+
           {/* Rating Section */}
           <div>
             <label className="block text-sm font-bold mb-4">Berapa bintang untuk {destinationName}?</label>
@@ -104,12 +127,12 @@ export default function ReviewModal({ isOpen, destinationName, onClose, onSubmit
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 py-4 px-6 bg-primary text-primary-foreground border-4 border-border rounded-lg font-bold text-lg hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 py-4 px-6 bg-primary text-primary-foreground border-4 border-border font-bold text-lg hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
                 boxShadow: isSubmitting ? 'inset 4px 4px 0px rgba(0,0,0,0.2)' : '4px 4px 0px 0px #000'
               }}
             >
-              {isSubmitting ? 'Mengirim...' : 'Kirim Review'}
+              {isSubmitting ? 'Mengirim...' : 'Kirim'}
             </button>
             <button
               type="button"

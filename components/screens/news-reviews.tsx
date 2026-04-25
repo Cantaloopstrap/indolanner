@@ -1,8 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { Calendar, ThumbsUp, TrendingUp, Users, Wallet, Shield, Smartphone, Plane } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Image from 'next/image'
+import NewsDetailSheet from '../news-detail-sheet'
 
 // Real April 2026 Statistics Data
 const statisticsData = [
@@ -138,6 +140,14 @@ const reviews = [
 ]
 
 export default function NewsReviews() {
+  const [selectedNews, setSelectedNews] = useState<typeof newsData[0] | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
+
+  const handleNewsClick = (newsItem: typeof newsData[0]) => {
+    setSelectedNews(newsItem)
+    setSheetOpen(true)
+  }
+
   const renderStarRating = (rating: number) => {
     return (
       <div className="inline-flex items-center gap-1 px-3 py-1.5 bg-zinc-800 dark:bg-zinc-300 border-2 border-border shadow-[2px_2px_0_0] shadow-border">
@@ -208,6 +218,7 @@ export default function NewsReviews() {
               {newsData.map((item) => (
                 <div
                   key={item.id}
+                  onClick={() => handleNewsClick(item)}
                   className="bg-card text-card-foreground border-4 border-border overflow-hidden shadow-[4px_4px_0_0] shadow-border hover:shadow-[2px_2px_0_0] hover:shadow-border hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
                 >
                   {/* Image */}
@@ -289,6 +300,13 @@ export default function NewsReviews() {
             ))}
           </div>
         </section>
+
+        {/* News Detail Sheet */}
+        <NewsDetailSheet 
+          isOpen={sheetOpen} 
+          onClose={() => setSheetOpen(false)} 
+          newsItem={selectedNews}
+        />
       </div>
     </div>
   )
