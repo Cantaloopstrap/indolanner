@@ -41,8 +41,14 @@ export default function Home() {
 
   const handleQuizComplete = (answers: Record<string, string>) => {
     setQuizAnswers(answers)
+    // DEMO MODE: Inject hardcoded Bali itinerary from quiz
+    const demoItinerary: ItineraryDestination[] = [
+      { name: 'Ubud', addedAt: new Date() },
+      { name: 'Kuta', addedAt: new Date() },
+    ]
+    setItinerary(demoItinerary)
     setShowTimeline(true)
-    console.log('[v0] Quiz completed with answers:', answers)
+    console.log('[v0] Demo Mode: Quiz completed with hardcoded Bali itinerary')
   }
 
   const handleEditPreferences = () => {

@@ -25,7 +25,7 @@ export default function CityDashboard() {
 
   return (
     <div className="w-full h-full overflow-y-auto bg-background">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8">
           <h2 className="text-4xl font-bold font-serif mb-2">Keadaan Kotaku</h2>
@@ -37,21 +37,21 @@ export default function CityDashboard() {
         {/* Main Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Interactive Leaflet Map */}
-          <div className="lg:col-span-2 bg-card border-4 border-border p-6 shadow-[4px_4px_0_0] shadow-border">
+          <div className="lg:col-span-2 bg-card border-4 border-border p-6 shadow-[4px_4px_0_0] shadow-border rounded-lg">
             <h3 className="text-2xl font-bold font-serif mb-4">Peta Indonesia Interaktif</h3>
-            <div className="h-[450px] w-full">
+            <div className="h-[500px] w-full border-4 border-border rounded-lg overflow-hidden">
               <DynamicIndonesiaMap 
                 onCitySelect={setSelectedCity}
                 selectedCity={selectedCity}
               />
             </div>
             <p className="text-sm font-bold text-foreground/70 mt-4">
-              Klik marker untuk melihat detail. Zoom untuk melihat lebih banyak kota.
+              Klik marker untuk melihat detail. Zoom dan drag untuk menjelajahi peta.
             </p>
           </div>
 
           {/* Massive Stats Dashboard */}
-          <div className="bg-card border-4 border-border p-8 shadow-[4px_4px_0_0] shadow-border flex flex-col justify-between">
+          <div className="bg-card border-4 border-border p-8 shadow-[4px_4px_0_0] shadow-border flex flex-col justify-between rounded-lg">
             <div>
               <h3 className="text-2xl font-bold font-serif mb-8 text-center border-b-4 border-border pb-4">
                 {selectedCity?.name || 'Pilih Kota'}
@@ -150,8 +150,8 @@ export default function CityDashboard() {
         </div>
 
         {/* Legend */}
-        <div className="mt-8 bg-secondary/20 border-4 border-border p-6 shadow-[4px_4px_0_0] shadow-border">
-          <h3 className="text-xl font-black font-serif mb-4">Panduan Kualitas Udara</h3>
+        <div className="mt-12 bg-secondary/20 border-4 border-border p-8 shadow-[4px_4px_0_0] shadow-border rounded-lg">
+          <h3 className="text-xl font-black font-serif mb-6">Panduan Kualitas Udara</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex items-center gap-3">
               <div
@@ -187,7 +187,7 @@ export default function CityDashboard() {
         </div>
 
         {/* All Cities Grid */}
-        <div className="mt-8">
+        <div className="mt-12 pb-8">
           <h3 className="text-2xl font-black font-serif mb-6">Semua Kota</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {INDONESIAN_CITIES.map((city) => (

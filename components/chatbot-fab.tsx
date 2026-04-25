@@ -69,40 +69,30 @@ export default function ChatbotFAB({ onAddDestinationToItinerary }: ChatbotFABPr
 
     // Simulate AI response with destination card
     setTimeout(() => {
-      const userInput = inputValue.toLowerCase()
-      let aiResponse: Message
-
-      // Check if user is asking for recommendations
-      if (
-        userInput.includes('rekomendasi') ||
-        userInput.includes('destinasi') ||
-        userInput.includes('mana')
-      ) {
-        // Send destination card
-        const randomDestination =
-          DESTINATIONS[Math.floor(Math.random() * DESTINATIONS.length)]
-        aiResponse = {
-          id: (Date.now() + 1).toString(),
-          sender: 'ai',
-          type: 'destination',
-          destination: randomDestination,
-        }
-      } else {
-        // Send text response
-        const textResponses = [
-          'Bagus! Saya punya rekomendasi sempurna untuk Anda. Klik "Dapatkan Rekomendasi" untuk melihat destinasi terbaik!',
-          'Itu menarik! Saya telah menyiapkan beberapa pilihan destinasi yang sesuai dengan preferensi Anda.',
-          'Tentang itu, saya punya beberapa ide brilian. Mari saya tunjukkan destinasi yang paling cocok!',
-        ]
-        aiResponse = {
-          id: (Date.now() + 1).toString(),
-          text: textResponses[Math.floor(Math.random() * textResponses.length)],
-          sender: 'ai',
-          type: 'text',
-        }
+      // DEMO MODE: Always return the same response - Monkey Forest Ubud
+      console.log('[v0] Demo Mode: Chatbot returning hardcoded Monkey Forest response')
+      
+      // First message: prefix text
+      const prefixMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: 'Tentu! Ini adalah rekomendasi terbaik untuk Anda:',
+        sender: 'ai',
+        type: 'text',
+      }
+      
+      // Second message: Monkey Forest card
+      const monkeyForestCard: Message = {
+        id: (Date.now() + 2).toString(),
+        sender: 'ai',
+        type: 'destination',
+        destination: {
+          name: 'Monkey Forest Ubud',
+          image: 'https://images.unsplash.com/photo-1537225228614-b3fb3d625cb0?w=400&h=300&fit=crop',
+          status: 'Sedang',
+        },
       }
 
-      setMessages((prev) => [...prev, aiResponse])
+      setMessages((prev) => [...prev, prefixMessage, monkeyForestCard])
       setIsLoading(false)
     }, 1500)
   }
