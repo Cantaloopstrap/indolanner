@@ -54,13 +54,22 @@ export default function HomeScreen({ onSelectDestination, onQuizComplete }: Home
   return (
     <div className="w-full h-full overflow-y-auto bg-background">
       {/* Hero Section */}
-      <section className="bg-primary/30 border-b-4 border-border">
-        <div className="max-w-6xl mx-auto px-4 py-12">
+      <section className="relative border-b-4 border-border overflow-hidden">
+        {/* Blurred Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center blur-lg brightness-50"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1537225228614-b3fb3d625cb0?w=1200&q=80")',
+          }}
+        />
+        
+        {/* Content Overlay */}
+        <div className="relative max-w-6xl mx-auto px-4 py-20">
           <div className="text-center mb-8">
-            <h2 className="text-5xl font-bold font-serif mb-4 text-balance text-foreground">
+            <h2 className="text-5xl font-bold font-serif mb-4 text-balance text-white drop-shadow-lg">
               Jelajahi Keindahan Indonesia
             </h2>
-            <p className="text-xl text-foreground/80 max-w-2xl mx-auto text-balance">
+            <p className="text-xl text-white/90 max-w-2xl mx-auto text-balance drop-shadow-md">
               Temukan destinasi impian Anda dengan rekomendasi AI yang dipersonalisasi
             </p>
           </div>
@@ -69,10 +78,10 @@ export default function HomeScreen({ onSelectDestination, onQuizComplete }: Home
           <div className="flex justify-center">
             <button
               onClick={() => setShowQuiz(true)}
-              className="px-8 py-4 bg-secondary text-secondary-foreground border-4 border-border font-black text-lg flex items-center gap-3 shadow-[4px_4px_0_0] shadow-border hover:shadow-[2px_2px_0_0] hover:shadow-border hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all"
+              className="px-8 py-4 bg-secondary text-secondary-foreground border-4 border-border font-black text-lg flex items-center gap-3 shadow-[4px_4px_0px_0px_#000] hover:shadow-[2px_2px_0px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all"
             >
               <Sparkles size={24} />
-              Cari Destinasi dengan AI
+              Rencanakan Liburan AI
             </button>
           </div>
         </div>
